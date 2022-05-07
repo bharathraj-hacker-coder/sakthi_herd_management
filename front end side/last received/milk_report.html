@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Report</title>
+    <link rel="stylesheet" type="text/css" href="{% url 'style/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% url 'style/navpg.css' %}">
+
+</head>
+
+<body>
+    <div class="navbar">
+    <h1>Milk Report Page</h1>
+</div>
+<div class="main_container">
+    <!-- Cow Tag No -->
+    <label for="cow">Tag Number: </label>
+    <select name="cow" id="MReportcow">
+                      <option value="cow1">{{ tag_no|safe }}</option>
+                    </select><br><br>
+
+    <!-- Date feild -->
+    <label for="Date">From:</label>
+    <input type="date" id="MReportdate" name="Date"><br><br>
+
+    <!-- Date feild -->
+    <label for="Date">To:</label><br>
+    <input type="date" id="MReportdate1" name="Date"><br>
+
+    <!-- Action Radio Button -->
+    <p>Shift: </p>
+    <input type="radio" id="MRshiftM" name="Shift" value="Morning">
+    <label for="Morning">Morning</label><br>
+    <input type="radio" id="MRshiftE" name="Shift" value="Evening">
+    <label for="Evening">Evening</label><br><br>
+
+    <!-- On click show the Milk Report -->
+    <button type="button" onclick="MReportFunction()">Show Report</button><br><br>
+</div>
+    </div>
+    <!-- Navbar -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+
+    <body class="preload">
+        <!-- Navbar -->
+        <header class="header">
+            <button class="header__button" id="btnNav" type="button">
+          <i class="material-icons">menu</i>
+      </button>
+        </header>
+        <nav id="menu">
+            <div>
+                <nav class="nav">
+                    <div class="nav__links">
+                        <a href="{% url 'home' %}" class="nav__link">
+                            <i class="material-icons">home</i> Home Page
+                        </a>
+                        <a href="{% url 'milk_data_entry' %}" class="nav__link">
+                            <i class="material-icons">border_color</i> Milk Data Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'milk_data_overall_report' %}">
+                            <i class="material-icons">poll</i> Milk Report
+                        </a>
+                        <a class="nav__link" href="{% url 'insemination_entry' %}">
+                            <i class="material-icons">chalet</i> Insemination Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'calving_entry' %}">
+                            <i class="material-icons">pets</i> Calving Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'breeding_report' %}">
+                            <i class="material-icons">transgender</i> Breeding Report
+                        </a>
+                        <a class="nav__link" href="{% url 'treatment_entry' %}">
+                            <i class="material-icons">health_and_safety</i> Treatment Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'vaccination_entry' %}">
+                            <i class="material-icons">sports_cricket</i> Vaccination Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'deworming_entry' %}">
+                            <i class="material-icons">trip_origin</i> Deworming Entry
+                        </a>
+                        <a class="nav__link" href="#">
+                            <i class="material-icons">logout</i> Logout
+                        </a>
+                    </div>
+                    <div class="nav__overlay"></div>
+                </nav>
+
+    </body>
+    <script>
+        window.addEventListener("load", () => {
+            document.body.classList.remove("preload");
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const nav = document.querySelector(".nav");
+
+            document.querySelector("#btnNav").addEventListener("click", () => {
+                nav.classList.add("nav--open");
+            });
+
+            document.querySelector(".nav__overlay").addEventListener("click", () => {
+                nav.classList.remove("nav--open");
+            });
+        });
+
+        function MReportFunction() {
+            var mr_entry = new FormData();
+            mr_entry.append('mr_MReportcow', $('#MReportcow').val());
+            mr_entry.append('mr_MReportdate', $('#MReportdate').val());
+            mr_entry.append('mr_MReportdate1', $('#MReportdate1').val());
+            var shiftM = document.getElementById('MRshiftM');
+            var shiftE = document.getElementById('MRshiftE');
+            var shift;
+            if (shiftM.checked == true) {
+                shift = shiftM.value;
+            } else if (shiftE.checked == true) {
+                shift = shiftE.value;
+            } else {
+                shift = '';
+            }
+            mr_entry.append('mr_shift', shift);
+
+            location.href = "/milkreport_pdf.html";
+            $.ajax({
+                url: '',
+                type: 'post',
+                data: 'mr_entry',
+                processData: false,
+                contentType: false,
+                success: function () {
+                    alert('SUCCESS');
+                },
+                error: function (status) {
+                    alert('ERROR');
+                },
+            });
+        }
+    </script>
+
+</html>

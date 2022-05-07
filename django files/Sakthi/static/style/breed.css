@@ -1,0 +1,138 @@
+.bodyofcard {
+   
+    height: auto;
+    width: 48%;
+    /* padding-top: 100px; */
+    /* align-content: space-around; */
+    /* padding-bottom: 100px; */
+}
+
+.button {
+    margin-top: 100px;
+}
+
+.imgclass {
+    width: -80px;
+    height: -80px;
+}
+
+.card1 {
+    width: 95%;
+    background-color: rgba(31, 100, 31, 0.884);
+    /*border-top: 15px solid rgba(31, 100, 31, 0.884);*/
+    border-radius: 13px;
+    /* height: 250px; */
+    color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    margin: 2%;
+    padding: 12px 0px;
+}
+
+.card2 {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    transition: 2s;
+    border: 2px ;
+    width: 44%;
+    /* height: 36%; */
+    margin: 3%;
+}
+
+.card2:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: large;
+    padding-top: 3%;
+}
+
+input[type=text],
+select,
+textarea {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=date] {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=radio] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=button],
+button {
+    background-color: green;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=button],
+button:hover {
+    background-color: lightgreen;
+}
+
+.main_container {
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    padding-left: 5%;
+    padding-top: 5%;
+    align-items: center;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'static/gettingInputPage.css' %}">
+    <title>Add Feed</title>
+</head>
+
+<body>
+    <div class="navbar">
+    <h1>Add Feed Page</h1>
+
+    <!-- Concentrate -->
+    <div class="main_container">
+    <label for="fname">Concentrate Name:</label>
+    <select name="color" id="com1" onchange='Checkval(this.value);'>
+      <option>pick Concentrate</option>
+  <option value="Rice bran"> Rice bran</option>
+  <option value="Wheat bran">Wheat bran</option>
+  <option value="Groundnut oil cake">Groundnut oil cake</option>
+  <option value="Cotton seed cake">Cotton seed cake</option>
+  <option value="cocunut oil cake">cocunut oil cake</option>
+  <option value="Maize floor">Maize flour</option>
+  <option value="Wheat flour">Wheat flour</option>
+  <option value="Rice flour">Rice flour</option>
+  <option value="other">other</option>
+    </select>
+    <br><br>
+    <label for="fname" id="company" style='display:none;'> Enter Concentrate Name:</label>
+    <input type="text" id="addcompany" style='display:none;' />
+    <br><br>
+
+    <!-- quantity -->
+    <label for="fname">quantity:</label>
+    <input type="text" id="quantity1" name="quantity1"><br><br>
+
+
+    <!-- Concentrate -->
+    <label for="fname">Concentrate Name:</label>
+    <select name="color" id="com2" onchange='Checkval2(this.value);'>
+      <option>pick Concentrate</option>
+  <option value="Green maize">green maize</option>
+  <option value="C04">C04</option>
+  <option value="C05">C05</option>
+  <option value="Super Naiper">Super Naiper</option>
+  <option value="Red Naiper">Red Naiper</option>
+  <option value="Paddy straw">Paddy straw</option>
+  <option value="Sorghun Stover">Sorghun Stover</option>
+  <option value="Cofs49">Cofs49</option>
+  <option value="Hedge lucerne">Hedge lucerne</option>
+  <option value="Lucerne">Lucerne</option>
+  <option value="other">other</option>
+</select>
+    <br><br>
+    <label for="fname" id="company_2" style='display:none;'> Enter Concentrate Name:</label>
+    <input type="text" id="addcompany_2" style='display:none;' />
+    <br><br>
+
+    <!-- quantity -->
+    <label for="fname">quantity:</label>
+    <input type="text" id="quantity2" name="quantity2"><br><br>
+
+<!-- Save Button -->
+<button type="button" onclick="addfeed()">Save</button><br><br>
+</div>
+</div>
+</body>
+<script>
+    function Checkval(val) {
+
+        var element1 = document.getElementById("company");
+        var element2 = document.getElementById("addcompany");
+        if (val == 'pick Concentrate' || val == 'other') {
+            element1.style.display = 'block';
+            element2.style.display = 'block';
+        } else {
+            element1.style.display = 'none';
+            element2.style.display = 'none';
+        }
+
+    }
+
+
+    function Checkval2(val) {
+        var element1 = document.getElementById("company_2");
+        var element2 = document.getElementById("addcompany_2");
+        if (val == 'pick Concentrate' || val == 'other') {
+            element1.style.display = 'block';
+            element2.style.display = 'block';
+        } else {
+            element1.style.display = 'none';
+            element2.style.display = 'none';
+        }
+    }
+
+    function addfeed() {
+        var ad_entry = new FormData();
+        ad_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        var company1 = document.getElementById("com1").value
+        if (company1 == 'other') {
+            var company1 = document.getElementById("addcompany").value
+        }
+        ad_entry.append('ad_company1', company1);
+        ad_entry.append('ad_quantity1', $('#quantity1').val());
+        var company2 = document.getElementById("com2").value
+        if (company2 == 'other') {
+            var company2 = document.getElementById("addcompany").value
+        }
+        ad_entry.append('ad_company2', company2);
+        ad_entry.append('ad_quantity2', $('#quantity2').val());
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: ad_entry,
+            processData: false,
+            contentType: false,
+            success: function () {
+            alert('SUCCESS');
+            },
+            error: function (status) {
+                 alert('ERROR');
+            },
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Milk  Report</title>
+  </head>
+  <body>
+  <h5 style="font-size: 15px; margin-bottom: 0px;  margin-top: 2px">Report Date: {{report_date|safe}}</h5>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+
+                <table class="table" style="border: 1px solid black"; >
+                    <thead>
+                      <tr style="font-size: 15px; padding-top: 5px">
+                        <th  scope="col" style="width: 80px">Tag no</th>
+                        <th scope="col" style="width: 250px">Date</th>
+                        <th scope="col" style="width: 70px">Shift</th>
+                        <th scope="col" style="width: 100px">Quantity</th>
+                          <th scope="col" style="width: 300px">Fat</th>
+                          <th scope="col" style="width: 300px">Fnf</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in milkreport %}
+                        <tr style="text-align: center">
+                            <td style="font-size: 15px; padding-top: 5px">{{ i.tag_no }}</td>
+                            <td style="font-size: 15px; padding-top: 5px">{{ i.date }}</td>
+                            <td style="font-size: 15px; padding-top: 5px">{{ i.shif }}</td>
+                            <td style="font-size: 15px; padding-top: 5px">{{ i.quanity }}</td>
+                            <td style="font-size: 12px; padding-top: 5px; ">{{ i.fat }}</td>
+                            <td style="font-size: 12px; padding-top: 5px; ">{{i.snf }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  </body>
+</html>

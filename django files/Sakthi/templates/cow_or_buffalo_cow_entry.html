@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style/gettingInputPage.css' %}">
+    <title>cow and cow buffalo entry page</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>{{breedname|safe}} Entry Page</h1>
+    </div>
+    
+    <div class="main_container">
+        <!-- COW NAME -->
+        <label for="fname"> Cow Name:</label><br>
+        <input type="text" id="cname" name="cname" class="in_text">
+
+        <!-- TAG NO -->
+        <label for="fname"> Cow Tag Number:</label><br>
+        <input type="text" id="tagnum" name="fname" class="in_text">
+
+        <label for="Breed"> Breed:</label>
+        <span id="breedname">{{breedname|safe}}</span><br><br>
+
+        <!-- SEX -->
+        <label for="Sex"> Sex:</label>
+        <span id="sex">{{ sex|safe }}</span><br><br>
+
+        <!-- Date of birth -->
+        <label for="Date">Date Of Birth:</label><br>
+        <input type="date" id="dateofbirth" name="Date" class="in_text">
+
+        <!-- Number of Lactation -->
+        <label for="fname"> Number of Lactation:</label><br>
+        <input type="text" id="lactation" name="fname" class="in_text">
+
+        <!-- Milking Status -->
+        <p style="text-align: center">Milking Status:
+            <input type="radio" id="Mstatus1" name="Status" value="Dry">
+            <label for="Dry">Dry</label>
+            <input type="radio" id="Mstatus2" name="Status" value="Milking">
+            <label for="Milking">Milking</label>
+        </p>
+        <!-- Breeding status -->
+        <p style="text-align: center">Breading Status:
+            <input type="radio" id="Bstatus1" name="Status1" value="Breed">
+            <label for="Breed">Breed</label>
+            <input type="radio" id="Bstatus2" name="Status1" value="Skipped">
+            <label for="Skipped">Skipped</label>
+        </p>
+
+        <!-- Last Breeding -->
+        <label for="Date">Last Breading:</label><br>
+        <input type="date" id="breeddate" name="Date" class="in_text">
+
+        <!-- LAst Calving -->
+        <label for="Date">Last Calving:</label><br>
+        <input type="date" id="calvdate" name="Date" class="in_text">
+
+        <!-- Calf gender Radio Button -->
+        <p style="text-align: center">Calf Gender:
+            <input type="radio" id="Cgen1" name="gen" value="Male">
+            <label for="Male">Male</label>
+            <input type="radio" id="Cgen2" name="gen" value="Female">
+            <label for="Female">Female</label>
+        </p>
+
+        <!-- Sire Name -->
+        <label for="fname"> Sire Name:</label><br>
+        <input type="text" id="sirename" name="fname" class="in_text">
+
+        <!-- Dam Name -->
+        <label for="fname"> Dame Name:</label><br>
+        <input type="text" id="damname" name="fname" class="in_text">
+
+        <button type="button" onclick="gettingInput()">Add Feed</button>
+    </div>
+    
+
+</body>
+
+<script>
+    function gettingInput() {
+        var ccb_entry = new FormData();
+        ccb_entry.append('ccb_tagnum', $('#tagnum').val());
+        ccb_entry.append('ccb_cname', $('#cname').val());
+        ccb_entry.append('ccb_sirename', $('#sirename').val());
+        ccb_entry.append('ccb_damname', $('#damname').val());
+        const breedname = document.getElementById('breedname');
+        ccb_entry.append('ccb_breedname', breedname.textContent);
+        const sex = document.getElementById('sex');
+        ccb_entry.append('ccb_sex', sex.textContent);
+        ccb_entry.append('ccb_lactation', $('#lactation').val());
+        const Milk = document.getElementById("Mstatus2");
+        const dry = document.getElementById("Mstatus1");
+        var Mstatus;
+        if (Milk.checked == true) {
+            Mstatus=Milk.value;
+        } else if (dry.checked == true) {
+            Mstatus=dry.value;
+
+        } else {
+            Mstatus='';
+        }
+        ccb_entry.append('ccb_Mstatus', Mstatus);
+        const Breed = document.getElementById("Bstatus1");
+        const Skipped = document.getElementById("Bstatus2");
+        var Bstatus;
+        if (Breed.checked == true) {
+            Bstatus=Breed.value;
+        } else if (Skipped.checked == true) {
+            Bstatus=Skipped.value;
+        } else {
+            Bstatus='';
+        }
+        ccb_entry.append('ccb_Bstatus', Bstatus);
+        ccb_entry.append('ccb_breeddate', $('#breeddate').val());
+        ccb_entry.append('ccb_calvdate', $('#calvdate').val());
+        ccb_entry.append('ccb_dateofbirth', $('#dateofbirth').val());
+        const gmale = document.getElementById("Cgen1");
+        const gfemale = document.getElementById("Cgen2");
+        var Cgen;
+        if (gmale.checked == true) {
+            Cgen=gmale.value;
+        } else if (gfemale.checked == true) {
+            Cgen=gfemale.value;
+        } else {
+            Cgen='';
+        }
+        ccb_entry.append('ccb_Cgen', Cgen);
+        ccb_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: ccb_entry,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location.href=`{%  url 'add_feed' %}?tag_no=${data.tag_no}`
+            },
+            error: function (status) {
+                if(status.status == 500){
+                    alert("Tag number is existing");
+                }
+                else {
+                    alert('Fill all data');
+                }
+            },
+        });
+    }
+</script>
+
+</html>

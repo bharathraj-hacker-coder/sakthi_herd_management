@@ -1,0 +1,349 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'style/breed.css' %}">
+    <link rel="stylesheet" href="{% static 'style/gettingInputPage.css' %}">
+    <title>{{ breed|safe }} Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Navbar -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <h1>{{ breed|safe }} Details Page</h1>
+    <div class="menu_buttons">
+        <a href="{% url 'cowandcowbuffaloprofile' %}?tag_no={{ tag_no|safe }}"" style=" text-decoration: none;" ><button class="buttons"
+        style="display: block;
+            width: 110%;
+            height: 50%;
+            border: none;
+            background-color: green;
+            color: white;
+            padding-right: 35px;
+padding-left: 35px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;" >{{ breed|safe }} Profile</button></a>
+        <a href="{% url 'individualmilkreport' %}?tag_no={{ tag_no|safe }}" style=" text-decoration: none;"><button class="buttons" style="
+        display: block;
+            width: 110;
+            height: 50%;
+            border: none;
+            background-color: green;
+            color: white;
+            padding-right: 35px;
+padding-left: 35px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;" >Milk Report</button></a>
+    </div>
+        <div class="menu_buttons">
+        <a href="{% url 'treatementdetails' %}?tag_no={{ tag_no|safe }}" style=" text-decoration: none;"><button class="buttons" style="
+        display: flex;
+        flex-direction: column;
+            width: 110%;
+            display: block;
+            border: none;
+            background-color: green;
+            color: white;
+            padding-right: 40px;
+padding-left: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;" >Treatment</button></a>
+        <a href="{% url 'cowandcowbuffaloedit' %}?tag_no={{ tag_no|safe }}" style=" text-decoration: none;"><button class="buttons" style="
+        display: block;
+            width: 110%;
+           display: block;
+            border: none;
+            background-color: rgb(183, 213, 183);
+            color: white;
+padding-right: 55px;
+padding-left: 55px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;" >Edit</button></a>
+    </div>
+    <br><br>
+    <div class="main_container">
+        <body>
+            <div class="navbar">
+                <h1>{{breedname|safe}} Edit page</h1>
+            </div>
+            
+            <div class="main_container">
+                <!-- COW NAME -->
+                <label for="fname"> Name:</label><br>
+                <input type="text" id="cname" value="{{ name|safe }}" name="cname" class="in_text"><br>
+        
+                <!-- TAG NO -->
+                <label for="fname"> Tag Number:</label><br>
+                <input type="text" id="tagnum" value="{{ tag_no|safe }}" name="fname" class="in_text">
+
+                <label for="Breed"> Breed:</label>
+                <span id="breedname">{{breedname|safe}}</span><br><br>
+
+                <!-- SEX -->
+                <label for="Sex"> Sex:</label>
+                <span id="sex">{{ sex|safe }}</span><br><br>
+        
+                <!-- Date of birth -->
+                <label for="Date">Date Of Birth:</label><br>
+                <input type="date" id="dateofbirth" value="{{ dob|safe }}" name="Date" class="in_text">
+        
+                <!-- Number of Lactation -->
+                <label for="fname"> Number of Lactation:</label><br>
+                <input type="text" id="lactation" value="{{ nol|safe }}" name="fname" class="in_text">
+        
+                <!-- Milking Status -->
+                <p>Milking Status: 
+                    <input type="radio" id="dstatus" name="mStatus" value="Dry">
+                    <label for="Dry">Dry</label>
+                    <input type="radio" id="mstatus" name="mStatus" value="Milking">
+                    <label for="Milking">Milking</label>
+                </p>
+                <!-- Breeding status -->
+                <p>Breeding Status:
+                    <input type="radio" id="bstatus" name="bStatus" value="breed">
+                    <label for="Dry">Breed</label>
+                    <input type="radio" id="sstatus" name="bStatus" value="Skipped">
+                    <label for="Milking">Skipped</label>
+                </p>
+        
+                <!-- Last Breeding -->
+                <label for="Date">Last Breeding:</label><br>
+                <input type="date" id="breeddate" value={{lastbreed|safe}} name="Date" class="in_text"><br>
+        
+                <!-- LAst Calving -->
+                <label for="Date">Last Calving:</label><br>
+                <input type="date" id="calvdate" value={{ lastcalv|safe }} name="Date" class="in_text">
+        
+                <!-- Calf gender Radio Button -->
+                <p>Calf Gender: 
+                    <input type="radio" id="cgen1" name="gen" value="Male">
+                    <label for="Morning">Male</label>
+                    <input type="radio" id="cgen2" name="gen" value="Female">
+                    <label for="Evening">Female</label>
+                </p>
+        
+                <!-- Sire Name -->
+                <label for="fname"> Sire Name:</label><br>
+                <input type="text" id="sirename" value="{{ sirename|safe }}" name="fname" class="in_text">
+        
+                <!-- Dam Name -->
+                <label for="fname"> Dam Name:</label><br>
+                <input type="text" id="damname" name="fname" value="{{ damname|safe }}" class="in_text">
+                <span style="font-weight: 300;">FEED DETAILS</span><br><br>
+
+              <!-- name of Concentrate -->
+              <label for="fname"> Name of Concentrate :</label><br>
+              <input type="text" id="nameofcomp1" value="{{ con1|safe }}" name="fname" class="in_text">
+
+              <!-- Quantity -->
+              <label for="fname"> Quantity :</label><br>
+              <input type="text" id="quuantity1" value={{ quan1|safe }} name="fname" class="in_text">
+        
+                <!-- name of Concentrate -->
+                <label for="fname"> Name of Concentrate :</label><br>
+                <input type="text" id="nameofcomp2" value="{{ con2|safe }}" name="fname" class="in_text">
+  
+                <!-- Quantity -->
+                <label for="fname"> Quantity :</label><br>
+                <input type="text" id="quuantity2" value={{ quan2|safe }} name="fname" class="in_text">
+          
+                <button type="button" onclick="save()" class="bt_add">Save</button>
+                <button type="button" onclick="deleteme()" class="bt_add" style="margin-left: 45%;">Delete</button>
+            </div>
+        </body>
+    </div>
+
+<body class="preload">
+    <!-- Navbar -->
+    <header class="header">
+        <button class="header__button" id="btnNav" type="button">
+      <i class="material-icons">menu</i>
+  </button>
+    </header>
+    <div id="menu">
+        <div>
+            <div class="nav">
+                <div class="nav__links">
+                    <a href="{% url 'home' %}" class="nav__link">
+                            <i class="material-icons">home</i> Home Page
+                        </a>
+                        <a href="{% url 'milk_data_entry' %}" class="nav__link">
+                            <i class="material-icons">border_color</i> Milk Data Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'milk_data_overall_report' %}">
+                            <i class="material-icons">poll</i> Milk Report
+                        </a>
+                        <a class="nav__link" href="{% url 'insemination_entry' %}">
+                            <i class="material-icons">chalet</i> Insemination Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'calving_entry' %}">
+                            <i class="material-icons">pets</i> Calving Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'breeding_report' %}">
+                            <i class="material-icons">transgender</i> Breeding Report
+                        </a>
+                        <a class="nav__link" href="{% url 'treatment_entry' %}">
+                            <i class="material-icons">health_and_safety</i> Treatment Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'vaccination_entry' %}">
+                            <i class="material-icons">sports_cricket</i> Vaccination Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'deworming_entry' %}">
+                            <i class="material-icons">trip_origin</i> Deworming Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'logout' %}">
+                            <i class="material-icons">logout</i> Logout
+                        </a>
+                </div>
+                <div class="nav__overlay"></div>
+            </div>
+        </div>
+    </div>
+    </body>
+<script>
+    window.addEventListener("load", () => {
+        document.body.classList.remove("preload");
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const nav = document.querySelector(".nav");
+        document.querySelector("#btnNav").addEventListener("click", () => {
+            nav.classList.add("nav--open");
+        });
+        document.querySelector(".nav__overlay").addEventListener("click", () => {
+            nav.classList.remove("nav--open");
+        });
+    });
+    function codeAddress(){
+        var gmale = document.getElementById("cgen1");
+        var gfemale = document.getElementById("cgen2");
+        var breed = document.getElementById("bstatus");
+        var skipped = document.getElementById("sstatus");
+        var milk = document.getElementById("mstatus");
+        var dry = document.getElementById("dstatus");
+        var mstatus="{{ mstatus|safe }}";
+        var bstatus="{{ bstatus|safe }}";
+        var calfgen="{{ calfgen|safe }}";
+        if(mstatus=='Milking'){
+            milk.checked=true;
+        }else{
+            dry.checked=true;
+        }
+        if(bstatus=='breed'){
+            breed.checked=true;
+        }else{
+            skipped.checked=true;
+        }
+        if(calfgen=='Male'){
+            gmale.checked=true;
+        }else{
+            gfemale.checked=true;
+        }
+    }
+    codeAddress();
+    function save() {
+        var ccbe_entry = new FormData();
+        ccbe_entry.append('cedit_data_from', 'save');
+        ccbe_entry.append('ccbe_cname', $('#cname').val());
+        ccbe_entry.append('ccbe_tagnum', $('#tagnum').val());
+        ccbe_entry.append('ccbe_tagnumold', '{{tag_no|safe}}');
+        ccbe_entry.append('ccbe_dateofbirth', $('#dateofbirth').val());
+        ccbe_entry.append('ccbe_sirename', $('#sirename').val());
+        ccbe_entry.append('ccbe_damname', $('#damname').val());
+        ccbe_entry.append('ccbe_nameofcomp1', $('#nameofcomp1').val());
+        ccbe_entry.append('ccbe_quantity1', $('#quuantity1').val());
+        ccbe_entry.append('ccbe_nameofcomp2', $('#nameofcomp2').val());
+        ccbe_entry.append('ccbe_quantity2', $('#quuantity2').val());
+        ccbe_entry.append('ccbe_lactation', $('#lactation').val());
+        const breed = document.getElementById("bstatus");
+        const skipped = document.getElementById("sstatus");
+        var brstatus;
+        if (breed.checked == true) {
+            brstatus = breed.value;
+        } else if (skipped.checked == true) {
+            brstatus = skipped.value;
+        } else {
+            brstatus = '';
+        }
+        ccbe_entry.append('ccbe_brstatus', brstatus);
+        const gmale = document.getElementById("cgen1");
+        const gfemale = document.getElementById("cgen2");
+        var Cgen;
+        if (gmale.checked == true) {
+            Cgen = gmale.value;
+        } else if (gfemale.checked == true) {
+            Cgen = gfemale.value;
+        } else {
+            Cgen = '';
+        }
+        ccbe_entry.append('ccbe_Cgen', Cgen);
+        const milk = document.getElementById("mstatus")
+        const dry = document.getElementById("dstatus")
+        var mistatus;
+        if (milk.checked == true){
+            mistatus=milk.value;
+        } else if (dry.checked == true){
+            mistatus=dry.value;
+        } else {
+            mistatus = '';
+        }
+        ccbe_entry.append('ccbe_mistatus', mistatus)
+        ccbe_entry.append('ccbe_breeddate', $('#breeddate').val());
+        ccbe_entry.append('ccbe_calvdate', $('#calvdate').val());
+        ccbe_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: ccbe_entry,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location.href=`{%  url 'cowandcowbuffaloprofile' %}?tag_no=${data.tag_no}`
+            },
+            error: function (status) {
+                if(status.status == 500){
+                    alert("Tag number is existing");
+                }
+                else {
+                    alert('Fill all data');
+                }
+            },
+        });
+    }
+    function deleteme(){
+        var ccbd_entry = new FormData();
+        ccbd_entry.append('cedit_data_from', 'delete');
+        ccbd_entry.append('ccbd_tagnum', '{{ tag_no|safe }}');
+        ccbd_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: ccbd_entry,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                alert('details deleted');
+                window.location.href=`{%  url 'home' %}`
+            },
+        });
+    }
+    </script>
+
+</body>
+</html>

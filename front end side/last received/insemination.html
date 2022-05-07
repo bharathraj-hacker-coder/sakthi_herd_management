@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insemination</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/style/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/navpg.css' %}">
+
+
+</head>
+
+<body>
+    <div class="navbar">
+    <h1>Insemination Page</h1>
+</div>
+    <!-- Cow Tag No -->
+    <div class="main_container">
+    <label for="cow">Tag Number: </label>
+    <select name="cow" id="Insemcow">
+              <option value="cow1">{{ tag_no|safe }}</option>
+            </select><br><br>
+
+    <!-- Date feild -->
+    <label for="Date">Date:</label>
+    <input type="date" id="Insemdate" name="Date"><br>
+
+    <!-- Action Radio Button -->
+    <p>Action: </p>
+    <input type="radio" id="InsemActionB" name="Shift" value="Bred" onchange='Checkval(this.value)';>
+    <label for="Morning">Bred</label><br>
+
+    <input type="radio" id="InsemActionS" name="Shift" value="Skipped" onchange='Checkval(this.value)'>
+    <label for="Evening">Skipped</label>
+
+    <label for="cow" id="otherbreed1"  style='display:none; ' >Sire Tag Number:  </label>
+    <select name="cow" id="otherbreed2" style='display:none; '>
+              <option value="cow1">{{ tag_no|safe }}</option>
+            </select><br>
+
+    <label  id="otherbreed3"  style='display:none; ' for="quantity">AI Tech-name: </label>
+    <input type="text" id="otherbreed4"  style='display:none; ' name="quantity"><br>
+
+        <!-- Date feild -->
+        <label id="otherbreed5"  style='display:none; ' for="Date">Alarm Date:</label>
+        <input type="date" id="otherbreed6"  style='display:none; ' name="Date"><br>
+
+    <!-- Save Button -->
+    <button type="button" onclick="InsemFunction()">Save</button><br><br>
+</div>
+
+    <!-- Navbar -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+
+    <body class="preload">
+        <!-- Navbar -->
+        <header class="header">
+            <button class="header__button" id="btnNav" type="button">
+          <i class="material-icons">menu</i>
+      </button>
+        </header>
+        <nav id="menu">
+            <div>
+                <nav class="nav">
+                    <div class="nav__links">
+                        <a href="{% url 'home' %}" class="nav__link">
+                            <i class="material-icons">home</i> Home Page
+                        </a>
+                        <a href="{% url 'milk_data_entry' %}" class="nav__link">
+                            <i class="material-icons">border_color</i> Milk Data Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'milk_data_overall_report' %}">
+                            <i class="material-icons">poll</i> Milk Report
+                        </a>
+                        <a class="nav__link" href="{% url 'insemination_entry' %}">
+                            <i class="material-icons">chalet</i> Insemination Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'calving_entry' %}">
+                            <i class="material-icons">pets</i> Calving Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'breeding_report' %}">
+                            <i class="material-icons">transgender</i> Breeding Report
+                        </a>
+                        <a class="nav__link" href="{% url 'treatment_entry' %}">
+                            <i class="material-icons">health_and_safety</i> Treatment Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'vaccination_entry' %}">
+                            <i class="material-icons">sports_cricket</i> Vaccination Entry
+                        </a>
+                        <a class="nav__link" href="{% url 'deworming_entry' %}">
+                            <i class="material-icons">trip_origin</i> Deworming Entry
+                        </a>
+                        <a class="nav__link" href="#">
+                            <i class="material-icons">logout</i> Logout
+                        </a>
+                    </div>
+                    <div class="nav__overlay"></div>
+                </nav>
+
+    </body>
+    <script>
+        window.addEventListener("load", () => {
+            document.body.classList.remove("preload");
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const nav = document.querySelector(".nav");
+
+            document.querySelector("#btnNav").addEventListener("click", () => {
+                nav.classList.add("nav--open");
+            });
+
+            document.querySelector(".nav__overlay").addEventListener("click", () => {
+                nav.classList.remove("nav--open");
+            });
+        });
+
+        function InsemFunction() {
+            var in_entry = new FormData();
+            in_entry.append('', $('#Insemcow').val());
+            in_entry.append('', $('#Insemdate').val());
+            var actionB = document.getElementById('InsemActionB');
+            var actionS = document.getElementById('InsemActionS');
+            var ac;
+            if (actionB.checked == true) {
+                var other = document.getElementById('otherbreed');
+                ac = other.value;
+            } else if (actionS.checked == true) {
+                ac = actionS.value;
+            } else {
+                ac = '';
+            }
+            in_entry.append('in_ac', ac);
+            $.ajax({
+                url: '',
+                type: 'post',
+                data: 'in_entry',
+                processData: false,
+                contentType: false,
+                success: function () {
+                    alert('SUCCESS');
+                },
+                error: function (status) {
+                    alert('ERROR');
+                },
+            });
+        }
+        function Checkval(val) {
+
+var element1 = document.getElementById("otherbreed1");
+var element2 = document.getElementById("otherbreed2");
+var element3 = document.getElementById("otherbreed3");
+var element4 = document.getElementById("otherbreed4");
+var element5 = document.getElementById("otherbreed5");
+var element6 = document.getElementById("otherbreed6");
+if (val == "Bred") {
+    element1.style.display = 'block';
+    element2.style.display = 'block';
+    element3.style.display = 'block';
+    element4.style.display = 'block';
+    element5.style.display = 'block';
+    element6.style.display = 'block';
+  
+} else {
+    element1.style.display = 'none';
+    element2.style.display = 'none';
+    element3.style.display = 'none';
+    element4.style.display = 'none';
+    element5.style.display = 'none';
+    element6.style.display = 'none';
+   
+}
+
+}
+    </script>
+
+</html>

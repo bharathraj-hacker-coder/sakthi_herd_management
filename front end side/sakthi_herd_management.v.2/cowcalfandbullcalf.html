@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style/navpg.css">
+
+    <title>Entry Page</title>
+</head>
+
+<body>
+    <div class="navbar">
+    <h1>Cow Calf or Buffalo Calf Entry page</h1>
+</div>
+<div class="main_container">
+    <!-- COW NAME -->
+    <label for="fname"> Cow Name:</label>
+    <input type="text" id="cname" name="cname"><br><br>
+
+    <!-- TAG NO -->
+    <label for="fname"> Cow Tag Number:</label>
+    <input type="text" id="tagnum" name="fname"><br><br>
+    <!-- BREAD -->
+    <label for="breed">Breed:</label>
+    <span id="breed"></span>
+
+    <!-- SEX -->
+    <label for="sex">Sex:</label>
+    <span id="sex"></span>
+
+
+    <!-- Date of birth -->
+    <label for="Date">Date Of Birth:</label>
+    <input type="date" id="dateofbirth" name="Date"><br><br>
+
+
+    <!-- Sire Name -->
+    <label for="fname"> Sire Name:</label>
+    <input type="text" id="sirename" name="fname"><br><br>
+
+    <!-- Dam Name -->
+    <label for="fname"> Dame Name:</label>
+    <input type="text" id="damname" name="fname"><br><br>
+
+    <button type="button" onclick="gettingInput()">Add Feed</button><br><br>
+</div>
+</body>
+
+<script>
+    function gettingInput() {
+        var ccbc_entry = new FormData();
+        ccbc_entry.append('ccbc_tagnum', $('#tagnum').val());
+        ccbc_entry.append('ccbc_cname', $('#cname').val());
+        ccbc_entry.append('ccbc_sirename', $('#sirename').val());
+        ccbc_entry.append('ccbc_damname', $('#damname').val());
+        ccbc_entry.append('ccbc_dateofbirth', $('#dateofbirth').val());
+        ccbc_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: ccbc_entry,
+            processData: false,
+            contentType: false,
+            success: function () {
+                alert('SUCCESS');
+            },
+            error: function (status) {
+                alert('ERROR');
+            },
+        });
+    }
+</script>
+
+</html>

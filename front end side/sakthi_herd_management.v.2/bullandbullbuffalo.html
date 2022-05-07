@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style/navpg.css">
+    <title>Entry Page</title>
+</head>
+
+<body>
+    <div class="navbar">
+    <h1>Bull or Bull Buffalo Entry page</h1>
+</div>
+<div class="main_container">
+    <!-- COW NAME -->
+    <label for="fname"> Cow Name:</label>
+    <input type="text" id="cname" name="cname"><br><br>
+
+    <!-- TAG NO -->
+    <label for="fname"> Cow Tag Number:</label>
+    <input type="text" id="tagnum" name="fname"><br><br>
+
+    <!-- BREAD -->
+    <span id="breed">Breed : Bull or Bull Buffalo</span>
+
+    <!-- SEX -->
+    <p>Sex : Male</p>
+
+    <!-- Last Breeding -->
+    <label for="Date">Date Of Birth:</label>
+    <input type="date" id="dateofbirth" name="Date"><br><br>
+
+
+    <!-- Sire Name -->
+    <label for="fname"> Sire Name:</label>
+    <input type="text" id="sirename" name="fname"><br><br>
+
+    <!-- Dam Name -->
+    <label for="fname"> Dame Name:</label>
+    <input type="text" id="damname" name="fname"><br><br>
+
+    <button type="button" onclick="gettingInput()">Add Feed</button><br><br>
+</div>
+</body>
+
+<script>
+    function gettingInput() {
+        var bbb_entry = new FormData();
+        bbb_entry.append('bbb_tagnum', $('#tagnum').val());
+        bbb_entry.append('bbb_cname', $('#cname').val());
+        bbb_entry.append('bbb_sirename', $('#sirename').val());
+        bbb_entry.append('bbb_damname', $('#damname').val());
+        bbb_entry.append('bbb_dateofbirth', $('#dateofbirth').val());
+        bbb_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: bbb_entry,
+            processData: false,
+            contentType: false,
+            success: function () {
+                alert('SUCCESS');
+            },
+            error: function (status) {
+                alert('ERROR');
+            },
+        });
+    }
+</script>
+
+</html>

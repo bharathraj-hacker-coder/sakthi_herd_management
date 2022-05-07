@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style/gettingInputPage.css' %}">
+    <title>Entry Page</title>
+</head>
+
+<body>
+    <div class="navbar">
+    <h1>{{breedname|safe}} Entry page</h1>
+</div>
+<div class="main_container">
+    <!-- COW NAME -->
+    {% csrf_token %}
+    <label for="fname"> Cow Name:</label>
+    <input type="text" id="cname" name="cname"><br><br>
+
+    <!-- TAG NO -->
+    <label for="fname"> Cow Tag Number:</label>
+    <input type="text" id="tagnum" name="fname"><br><br>
+
+    <!-- BREED -->
+    <label for="Breed"> Breed:</label>
+    <span id="breedname">{{breedname|safe}}</span><br><br>
+
+    <!-- SEX -->
+    <label for="Sex"> Sex:</label>
+    <span id="sex">{{ sex|safe }}</span><br><br>
+
+    <!-- Last Breeding -->
+    <label for="Date">Date Of Birth:</label>
+    <input type="date" id="dateofbirth" name="Date"><br><br>
+
+
+    <!-- Sire Name -->
+    <label for="fname"> Sire Name:</label>
+    <input type="text" id="sirename" name="fname"><br><br>
+
+    <!-- Dam Name -->
+    <label for="fname"> Dame Name:</label>
+    <input type="text" id="damname" name="fname"><br><br>
+
+    <button type="button" onclick="gettingInput()">Add Feed</button><br><br>
+</div>
+</body>
+
+<script>
+    function gettingInput() {
+        var bbb_entry = new FormData();
+        bbb_entry.append('bbb_tagnum', $('#tagnum').val());
+        bbb_entry.append('bbb_cname', $('#cname').val());
+        bbb_entry.append('bbb_sirename', $('#sirename').val());
+        bbb_entry.append('bbb_damname', $('#damname').val());
+        const breedname = document.getElementById('breedname');
+        bbb_entry.append('bbb_breedname', breedname.textContent);
+        const sex = document.getElementById('sex');
+        bbb_entry.append('bbb_sex', sex.textContent);
+        bbb_entry.append('bbb_dateofbirth', $('#dateofbirth').val());
+        bbb_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        console.log(bbb_entry);
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: bbb_entry,
+            processData: false,
+            contentType: false,
+            success: function (data){
+                window.location.href=`{%  url 'add_feed' %}?tag_no=${data.tag_no}`
+            },
+            error: function (status) {
+                if(status.status == 500){
+                    alert("Tag number is existing");
+                }
+                else {
+                    alert('Fill all data');
+                }
+            },
+        });
+    }
+</script>
+
+</html>

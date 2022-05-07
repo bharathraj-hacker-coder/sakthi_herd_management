@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style/navpg.css">
+    <title>cow and cow buffalo entry page</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>Cow and Cow Buffalo Entry Page</h1>
+    </div>
+    
+    <div class="main_container">
+        <!-- COW NAME -->
+        <label for="fname"> Cow Name:</label><br>
+        <input type="text" id="cname" name="cname" class="in_text">
+
+        <!-- TAG NO -->
+        <label for="fname"> Cow Tag Number:</label><br>
+        <input type="text" id="tagnum" name="fname" class="in_text">
+
+        <!-- BREED -->
+        <span id="breed">Breed : Cow </span><br>
+
+        <!-- SEX -->
+        <p>Sex : Female</p>
+
+        <!-- Date of birth -->
+        <label for="Date">Date Of Birth:</label><br>
+        <input type="date" id="dateofbirth" name="Date" class="in_text">
+
+        <!-- Number of Lactation -->
+        <label for="fname"> Number of Lactation:</label><br>
+        <input type="text" id="lactation" name="fname" class="in_text">
+
+        <!-- Milking Status -->
+        <p>Milking Status: 
+            <input type="radio" id="Mstatus" name="Status" value="Dry">
+            <label for="Dry">Dry</label>
+            <input type="radio" id="Mstatus" name="Status" value="Milking">
+            <label for="Milking">Milking</label>
+        </p>
+        <!-- Breading status -->
+
+
+        <!-- Last Breeding -->
+        <label for="Date">Last Breading:</label><br>
+        <input type="date" id="breeddate" name="Date" class="in_text">
+
+        <!-- LAst Calving -->
+        <label for="Date">Last Calving:</label><br>
+        <input type="date" id="calvdate" name="Date" class="in_text">
+
+        <!-- Calf gender Radio Button -->
+        <p>Calf Gender: 
+            <input type="radio" id="Cgen" name="gen" value="Male">
+            <label for="Morning">Male</label>
+            <input type="radio" id="Cgen" name="gen" value="Female">
+            <label for="Evening">Female</label>
+        </p>
+
+        <!-- Sire Name -->
+        <label for="fname"> Sire Name:</label><br>
+        <input type="text" id="sirename" name="fname" class="in_text">
+
+        <!-- Dam Name -->
+        <label for="fname"> Dame Name:</label><br>
+        <input type="text" id="damname" name="fname" class="in_text">
+
+        <button type="button" onclick="gettingInput()" class="bt_add">Add Feed</button>
+    </div>
+    
+
+</body>
+
+<script>
+    function gettingInput() {
+        var ccb_entry = new FormData();
+        ccb_entry.append('ccb_tagnum', $('#tagnum').val());
+        ccb_entry.append('ccb_cname', $('#cname').val());
+        ccb_entry.append('ccb_sirename', $('#sirename').val());
+        ccb_entry.append('ccb_damname', $('#damname').val());
+        ccb_entry.append('ccb_lactation', $('#lactation').val());
+        ccb_entry.append('ccb_Mstatus', $('#Mstatus').children(":selected").attr("value"));
+        ccb_entry.append('ccb_breeddate', $('#breeddate').val());
+        ccb_entry.append('ccb_calvdate', $('#calvdate').val());
+        ccb_entry.append('ccb_dateofbirth', $('#dateofbirth').val());
+        ccb_entry.append('ccb_Cgen', $('#Cgen').children(":selected").attr("value"));
+        ccb_entry.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+        $.ajax({
+            url: '',
+            type: 'post',
+            data: ccb_entry,
+            processData: false,
+            contentType: false,
+            success: function () {
+                alert('SUCCESS');
+            },
+            error: function (status) {
+                alert('ERROR');
+            },
+        });
+    }
+</script>
+
+</html>
